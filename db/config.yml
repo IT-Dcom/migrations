@@ -1,21 +1,19 @@
-development:
-  adapter: sqlite3
-  database: db/development.sqlite3
+default: &default
+  adapter: mysql2
   pool: 5
+  encoding: utf8
   timeout: 5000
+  username: root
+  password: root
+
+development:
+  <<: *default
+  database: livogis_dev
 
 production:
-  adapter: mysql
-  encoding: utf8
-  reconnect: false
-  database: somedatabase_dev
-  pool: 5
-  username: root
-  password:
-  socket: /var/run/mysqld/mysqld.sock
+  <<: *default
+  database: livogis_prod
 
-test: &test
-  adapter: sqlite3
-  database: db/test.sqlite3
-  pool: 5
-  timeout: 5000
+test:
+  <<: *default
+  database: livogis_test
