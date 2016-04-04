@@ -4,8 +4,9 @@
 Vagrant.configure(2) do |config|
   config.vm.box = 'ubuntu/trusty64'
   config.vm.network :private_network, ip: '192.168.50.5'
-  # Need to setup MySQL Vagrant
-  config.vm.network :forwarded_port, guest: 3306,  host: 3306 # mysql
+
+  config.vm.network :forwarded_port, guest: 22, host: 2223, id: 'ssh'
+  config.vm.network :forwarded_port, guest: 3306, host: 3306 # mysql
 
   config.vbguest.auto_update = false if defined?(VagrantVbguest::Middleware)
 
@@ -19,10 +20,13 @@ Vagrant.configure(2) do |config|
   config.vm.provision 'shell', privileged: false, inline: <<-SHELL
     sudo locale-gen fr_FR.UTF-8
 
-    sudo apt-get install -y mysql-server mysql-client libmysqlclient-dev
+    DBUSER=root
+    DBPASSWD=root
 
-    sudo mysql_install_db
-    sudo mysql_secure_installation
+    echo "mysql-server mysql-server/root_password password $DBPASSWD" | sudo debconf-set-selections
+    echo "mysql-server mysql-server/root_password_again password $DBPASSWD" | sudo debconf-set-selections
+
+    sudo apt-get install -y mysql-server
 
     mysql -u root -proot -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION; FLUSH PRIVILEGES;"
 
@@ -31,8 +35,12 @@ Vagrant.configure(2) do |config|
 
     source /home/vagrant/.rvm/scripts/rvm
     gem install bundler
+    gem install mysql2 -v '0.4.3'
 
     cd /vagrant
     bundle install
+
+    export DB_USER=$DBUSER
+    export DB_PASS=$DBPASSWD
   SHELL
 end
