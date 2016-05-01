@@ -11,13 +11,61 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160404205707) do
+ActiveRecord::Schema.define(version: 20160420185950) do
+
+  create_table "clients", force: :cascade do |t|
+    t.datetime "name"
+    t.datetime "email"
+    t.datetime "address"
+    t.datetime "zip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "drivers", force: :cascade do |t|
+    t.datetime "first_name"
+    t.datetime "last_name"
+    t.datetime "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "insurances", force: :cascade do |t|
+    t.datetime "name"
+    t.datetime "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "missions", force: :cascade do |t|
     t.datetime "assigned_at"
     t.datetime "completed_at"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.datetime "name"
+    t.datetime "weight"
+    t.datetime "condition"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "realy_points", force: :cascade do |t|
+    t.datetime "zip"
+    t.datetime "address"
+    t.datetime "longitude"
+    t.datetime "latitude"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "restaurants", force: :cascade do |t|
+    t.datetime "address"
+    t.datetime "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

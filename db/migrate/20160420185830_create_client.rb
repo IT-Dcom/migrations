@@ -1,6 +1,6 @@
-ass CreateClient < ActiveRecord::Migration
+class CreateClient < ActiveRecord::Migration
   def change
-      create_table :clients do |t|
+    create_table :clients do |t|
       t.datetime :name
       t.datetime :email
       t.datetime :address

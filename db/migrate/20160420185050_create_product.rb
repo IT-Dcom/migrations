@@ -1,6 +1,6 @@
-ass CreateProduct < ActiveRecord::Migration
+class CreateProduct < ActiveRecord::Migration
   def change
-      create_table :products do |t|
+    create_table :products do |t|
       t.datetime :name
       t.datetime :weight
       t.datetime :condition

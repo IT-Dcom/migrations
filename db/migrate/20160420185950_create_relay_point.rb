@@ -1,6 +1,6 @@
-ass CreateRelayPoint < ActiveRecord::Migration
+class CreateRelayPoint < ActiveRecord::Migration
   def change
-      create_table :realy_points do |t|
+    create_table :realy_points do |t|
       t.datetime :zip
       t.datetime :address
       t.datetime :longitude
