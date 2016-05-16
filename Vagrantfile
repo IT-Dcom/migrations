@@ -30,16 +30,6 @@ Vagrant.configure(2) do |config|
 
     mysql -u root -proot -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION; FLUSH PRIVILEGES;"
 
-    gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 || curl -sSL https://rvm.io/mpapis.asc | gpg --import -
-    curl -sSL https://get.rvm.io | bash -s stable --ruby
-
-    source /home/vagrant/.rvm/scripts/rvm
-    gem install bundler
-    gem install mysql2 -v '0.4.3'
-
-    cd /vagrant
-    bundle install
-
     export DB_USER=$DBUSER
     export DB_PASS=$DBPASSWD
   SHELL
